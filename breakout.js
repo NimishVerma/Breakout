@@ -23,7 +23,7 @@ var bricksArr = [];
 for(c=0; c<brickColumn; c++) {
     bricksArr[c] = [];
     for(r=0; r<brickRow; r++) {
-        bricksArr[c][r] = { x: 0, y: 0 };
+        bricksArr[c][r] = { x: 0, y: 0, fl : 1 };
     }
 }
 
@@ -62,8 +62,10 @@ function drawBar() {
     ctx.closePath();
 }
 function drawBricks() {
+
     for(c=0; c<brickColumn; c++) {
         for(r=0; r<brickRow; r++) {
+        	if (bricksArr[c][r].fl == 1){
             var brickAbs = (c*(brickWidth+brickPadding))+brickLeftMargin;
             var brickOrd = (r*(brickHeight+brickPadding))+brickTopMargin;
             bricksArr[c][r].x = brickAbs;
@@ -73,8 +75,14 @@ function drawBricks() {
             ctx.fillStyle = "green";
             ctx.fill();		
             ctx.closePath();
+            var b = bricksArr[c][r]
+            if (b.x < x && b.x + brickWidth > x && b.y < y && b.y + brickHeight > y ){
+            	b.flag = 0;
+            	dy = -dy 
+            }
         }
     }
+}
 }
 
 function draw() {
