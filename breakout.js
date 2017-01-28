@@ -18,7 +18,7 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickTopMargin = 30;
 var brickLeftMargin = 30;
-
+var score = 0;
 var bricksArr = [];
 for(c=0; c<brickColumn; c++) {
     bricksArr[c] = [];
@@ -75,21 +75,40 @@ function drawBricks() {
             ctx.fillStyle = "green";
             ctx.fill();		
             ctx.closePath();
-            var b = bricksArr[c][r]
-            if (b.x < x && b.x + brickWidth > x && b.y < y && b.y + brickHeight > y ){
-            	b.flag = 0;
-            	dy = -dy 
-            }
+            
         }
     }
 }
 }
+function collision()
+{	for(c=0; c<brickColumn; c++) 
+	{
+        for(r=0; r<brickRow; r++) 
+    	{
+        	var b = bricksArr[c][r]
+        	if (b.fl == 1 ){
+            if (b.x < x && b.x + brickWidth > x && b.y < y && b.y + brickHeight > y )
+            {
+            	b.fl = 0;
+            	dy = -dy ;
+            	score ++;
+            	if (score == brickColumn*brickRow){
+            		alert("Game won!");
+            	}
+            	
+            }
+        	}
+		}
+	}
+}
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillText("Score: "+score, 5, 17);
     drawBall();
     drawBricks();
     drawBar();
+    collision();
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -109,10 +128,10 @@ function draw() {
     }
     
     if(rightPressed && barX < canvas.width-barWidth) {
-        barX += 5;
+        barX += 3;
     }
     else if(leftPressed && barX > 0) {
-        barX -= 5;
+        barX -= 3;
     }
     
     x += dx;
