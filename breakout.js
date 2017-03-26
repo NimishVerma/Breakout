@@ -104,6 +104,8 @@ function collision()
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle="#FFFFFF"
+    ctx.font="14px Arial"
     ctx.fillText("Score: "+score, 5, 17);
     drawBall();
     drawBricks();
