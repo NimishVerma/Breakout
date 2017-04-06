@@ -94,6 +94,7 @@ function collision()
             	score ++;
             	if (score == brickColumn*brickRow){
             		alert("Game won!");
+			location.reload(true);
             	}
             	
             }
